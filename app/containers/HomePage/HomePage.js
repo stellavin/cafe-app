@@ -64,6 +64,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     this.renderCard();
   }
  
+  // this function is used to loop through the menu items
 
   renderCard(){
     return this.state.menu.map(function(item, i){
@@ -85,8 +86,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             </div>
 
       );
-
-      
     {/* End Card */}
 
     })
@@ -109,7 +108,12 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           <meta name="description" content="Cafe React App " />
         </Helmet>
         <div className="home-page">
+          <div className="display-row">
           <h2>Menu</h2>
+          <button>Add menu item</button>
+
+          </div>
+          
           <section className="align-left">
             {/* display cards */}
             {this.renderCard()}

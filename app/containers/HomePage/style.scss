@@ -92,4 +92,20 @@
     }
 
   }
+  button{
+    width: 164.6px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: #3b86ff;
+    color: #fff;
+    font-family: "SourceSansPro";
+    margin-left: 720px;
+    margin-top: 20px;
+    
+  }
+  .display-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
 }
