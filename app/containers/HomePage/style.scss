@@ -1,23 +1,36 @@
 .home-page {
+  margin-left: 100px;
+  margin-top: 50px;
+  font-family: 'SourceSansPro';
+  color: #43425d;
   
   h2 {
-    font-size: 1.5em;
+    font-size: 28px;
+    font-family: 'SourceSansPro';
+    font-weight: 'normal';
+    font-family: 'normal';
+    color: #43425d;
   }
   
   section {
     margin: 3em auto;
+    color: #43425d;
 
     &:first-child {
       margin-top: 0;
     }
 
-    &.centered {
-      text-align: center;
+    &.align-left {
+      display: flex;
+      text-align: left;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
 
   form {
     margin-bottom: 1em;
+    font-family: 'SourceSansPro';
 
     input {
       outline: none;
@@ -28,5 +41,55 @@
   span.at-prefix {
     color: black;
     margin-left: 0.4em;
+  }
+
+  .card {
+    margin-top: 30px;
+    height: 265px;
+    width: 300px;
+    background-color: #fff;
+    margin-right: 30px;
+
+  }
+  .child:nth-child(3n+1) {
+    clear: left;   
+}
+  .card-image {
+    width: 300px;
+    height: 190px;
+    background-color: #43425d;
+
+  }
+  .card-footer {
+    display: flex;
+    color: #7c7e89;
+    font-weight: 'bold';
+    font-style: 'normal';
+    font-family: 'SourceSansPro';
+    margin-left: 40px;
+    flex-direction: 'row' !important;
+    
+
+    .type {
+      font-size: 18;
+      text-align: 'left';
+      margin-top: 15px;
+      
+    }
+    .name{
+      font-size: 23;
+      text-align: 'left';
+      color: #4d4f5c;
+      margin-top: 6px;
+
+
+    }
+    .price{
+      opacity: 0.58;
+      font-size: 22;
+      margin-left: 100px;
+      margin-top: 25px;
+    }
+
   }
 }

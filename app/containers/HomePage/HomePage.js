@@ -14,11 +14,82 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   /**
    * when initial state username is not null, submit the form to load repos
    */
+
+  state= {
+    menu:[
+      {
+        type: "Main Course",
+        name:"Pizza Margherita",
+        price: 5,
+        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
+      },
+      {
+        type: "Main Course",
+        name:"Pizza Margherita",
+        price: 5,
+        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
+      },
+      {
+        type: "Main Course",
+        name:"Pizza Margherita",
+        price: 5,
+        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
+      },
+      {
+        type: "Main Course",
+        name:"Pizza Margherita",
+        price: 5,
+        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
+      },
+      {
+        type: "Main Course",
+        name:"Pizza Margherita",
+        price: 5,
+        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
+      },
+      {
+        type: "Main Course",
+        name:"Pizza Margherita",
+        price: 5,
+        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
+      }
+    ]
+  }
+
   componentDidMount() {
     const { username, onSubmitForm } = this.props;
     if (username && username.trim().length > 0) {
       onSubmitForm();
     }
+    this.renderCard();
+  }
+ 
+
+  renderCard(){
+    return this.state.menu.map(function(item, i){
+      console.log('items----', item)
+      {/* Menu Card */}
+      return (
+              <div className="card">
+              <div className="card-image">
+              </div>
+              <div className="card-footer">
+                <div>
+                  <div className="type">{item.type}</div>
+                  <div className="name">{item.name}</div>
+                </div>
+                <div className="price">$ {item.price}</div>
+                  
+              </div>
+
+            </div>
+
+      );
+
+      
+    {/* End Card */}
+
+    })
   }
 
   render() {
@@ -34,32 +105,15 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     return (
       <article>
         <Helmet>
-          <title>Home Page</title>
-          <meta name="description" content="A React.js Boilerplate application homepage" />
+          <title>Home</title>
+          <meta name="description" content="Cafe React App " />
         </Helmet>
         <div className="home-page">
-          <section className="centered">
-            <h2>Start your next react project in seconds</h2>
-            <p>
-              A minimal <i>React-Redux</i> boilerplate with all the best practices
-            </p>
-          </section>
-          <section>
-            <h2>Try me!</h2>
-            <form onSubmit={onSubmitForm}>
-              <label htmlFor="username">
-                Show Github repositories by
-                <span className="at-prefix">@</span>
-                <input
-                  id="username"
-                  type="text"
-                  placeholder="flexdinesh"
-                  value={username}
-                  onChange={onChangeUsername}
-                />
-              </label>
-            </form>
-            <ReposList {...reposListProps} />
+          <h2>Menu</h2>
+          <section className="align-left">
+            {/* display cards */}
+            {this.renderCard()}
+         
           </section>
         </div>
       </article>

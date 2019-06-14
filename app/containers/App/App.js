@@ -20,12 +20,14 @@ import './style.scss';
 const App = () => (
   <div className="app-wrapper">
     <Helmet
-      titleTemplate="%s - React.js Boilerplate"
-      defaultTitle="React.js Boilerplate"
+      titleTemplate="%s - Cafe React App"
+      defaultTitle="Cafe React App"
     >
-      <meta name="description" content="A React.js Boilerplate application" />
+      <meta name="description" content="Cafe React App" />
     </Helmet>
+
     <Header />
+    
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/features" component={FeaturePage} />
