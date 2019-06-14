@@ -16,46 +16,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
    * when initial state username is not null, submit the form to load repos
    */
 
-  state= {
-    menu2:[
-      {
-        type: "Main Course",
-        name:"Pizza Margherita",
-        price: 5,
-        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
-      },
-      {
-        type: "Main Course",
-        name:"Pizza Margherita",
-        price: 5,
-        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
-      },
-      {
-        type: "Main Course",
-        name:"Pizza Margherita",
-        price: 5,
-        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
-      },
-      {
-        type: "Main Course",
-        name:"Pizza Margherita",
-        price: 5,
-        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
-      },
-      {
-        type: "Main Course",
-        name:"Pizza Margherita",
-        price: 5,
-        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
-      },
-      {
-        type: "Main Course",
-        name:"Pizza Margherita",
-        price: 5,
-        url:"https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi6iZTe_ujiAhUk4YUKHX7-DX4QjRx6BAgBEAU&url=https%3A%2F%2Fwww.qsrmagazine.com%2Fcategory%2Fchains%2Fpizza-inn&psig=AOvVaw0qOpkO_b2_-mlvgUH4bZqu&ust=1560602286202514"
-      }
-    ]
-  }
   constructor(props) {
     super(props);
     this.ref = firebase.firestore().collection('menu');
@@ -66,13 +26,13 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
   }
 
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
 
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     this.renderCard();
   }
  
- 
   onCollectionUpdate = (querySnapshot) => {
+    // window.location.reload()
     const menu = [];
     querySnapshot.forEach((doc) => {
       const {name, type, price, photo} = doc.data();
@@ -100,6 +60,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       return (
               <div className="card">
               <div className="card-image">
+                <img src={item.photo} />
               </div>
               <div className="card-footer">
                 <div>

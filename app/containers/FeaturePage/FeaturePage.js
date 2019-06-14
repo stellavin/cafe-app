@@ -5,6 +5,10 @@ import './style.scss';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from '../Firebase/Firebase';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import FileUploader from "react-firebase-file-uploader";
+import CustomUploadButton from 'react-firebase-file-uploader/lib/CustomUploadButton';
+
 
 const techCompanies = [
   { label: "Side", value: "Side" },
@@ -12,14 +16,19 @@ const techCompanies = [
 ];
 export default class FeaturePage extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.ref = firebase.firestore().collection('menu');
     this.state = {
       type: '',
       name: '',
       price: '',
-      photo: ''
+      photo: '',
+      show: true,
+      myalert: null,
+      avatar: "",
+      isUploading: false,
+      progress: 0
     };
   }
   
@@ -46,7 +55,9 @@ export default class FeaturePage extends React.Component {
     e.preventDefault();
 
     const {name, type, price, photo} =this.state;
-    if(photo != ""){
+    console.log('im here 1')
+    if(type != ''){
+      console.log('im here 2')
     this.ref.add({
       name,
       type,
@@ -58,7 +69,7 @@ export default class FeaturePage extends React.Component {
         name: '',
         type: '',
         price: '',
-        phot: ''
+        photo: ''
       });
       this.props.history.push("/")
     })
@@ -66,16 +77,54 @@ export default class FeaturePage extends React.Component {
       console.error("Error adding document: ", error);
     });
   }else {
-    // show pop up to fill the field
+    console.log('im here 3')
+    const state = this.state
+    state["alert"] = true;
+    this.setState(state);
+    this.setState({state},function () {
+      console.log('image-------',this.state);
+     })
+    
   }
   }
+
+  hideAlert = () => {
+    this.setState({
+      myalert: false
+    });
+  }
+
+    handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
+    
+    handleProgress = progress => this.setState({ progress });
+    
+    handleUploadError = error => {
+      this.setState({ isUploading: false });
+      console.error(error);
+    };
+
+handleUploadSuccess = filename => {
+  this.setState({progress:100},function () {
+    console.log('filename-------',filename);
+   })
+  this.setState({ avatar: filename, progress: 100, isUploading: false });
+  firebase
+    .storage()
+    .ref("images")
+    .child(filename)
+    .getDownloadURL()
+    .then(url => this.setState({photo:url},function () {
+      console.log('image-------',this.state.photo);
+     }));
+
+};
 
 
  
 
   render() {
 
-    const {name, type, price, photo} =this.state;
+    const {name, type, price, photo, myalert, avatar} =this.state;
     return (
       <div className="feature-page">
         <Helmet>
@@ -86,6 +135,7 @@ export default class FeaturePage extends React.Component {
           />
         </Helmet>
         <h2>Add Menu Item</h2>
+      
         <form onSubmit={this.onSubmit}>
 
           <div className="row margin">
@@ -112,14 +162,42 @@ export default class FeaturePage extends React.Component {
           <div className="row margin">
             <div className="col-md-2">Photo</div>
             <div className="col-md-3">
-            <input  name="photo" required  onChange={this.onChange} placeholder="photo" type="file" className="inputfile"></input>
+            {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
+            {photo && <img src={photo} />}
+            <CustomUploadButton
+              accept="image/*"
+              storageRef={firebase.storage().ref('images')}
+              onUploadStart={this.handleUploadStart}
+              onUploadError={this.handleUploadError}
+              onUploadSuccess={this.handleUploadSuccess}
+              onProgress={this.handleProgress}
+              style={{backgroundColor: '#3b86ff', color: 'white', padding: 10, borderRadius: 4}}
+            >
+              Choose photo
+   
+            </CustomUploadButton>
             </div>
           </div>
+
+        
        
 
        
           <button type="submit">Save Item</button>
           </form>
+
+            <SweetAlert 
+              danger 
+              show={myalert}
+              title="Error!" 
+              onConfirm={this.hideAlert()} 
+            > 
+              Type should not be empty 
+            </SweetAlert>
+         
+          
+
+          
        
       
       </div>
