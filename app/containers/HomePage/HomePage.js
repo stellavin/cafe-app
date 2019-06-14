@@ -7,8 +7,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import ReposList from 'components/ReposList';
 import './style.scss';
+import { Link } from 'react-router-dom';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
@@ -110,7 +110,10 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         <div className="home-page">
           <div className="display-row">
           <h2>Menu</h2>
+          <Link className="router-link" to="/features">
           <button>Add menu item</button>
+          </Link>
+          
 
           </div>
           
