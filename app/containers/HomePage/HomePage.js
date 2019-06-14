@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import './style.scss';
 import { Link } from 'react-router-dom';
+import firebase from '../Firebase/Firebase';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**
@@ -16,7 +17,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
    */
 
   state= {
-    menu:[
+    menu2:[
       {
         type: "Main Course",
         name:"Pizza Margherita",
@@ -55,15 +56,41 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       }
     ]
   }
+  constructor(props) {
+    super(props);
+    this.ref = firebase.firestore().collection('menu');
+    this.unsubscribe = null;
+    this.state = {
+      menu: []
+    };
+  }
 
   componentDidMount() {
-    const { username, onSubmitForm } = this.props;
-    if (username && username.trim().length > 0) {
-      onSubmitForm();
-    }
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+
     this.renderCard();
   }
  
+ 
+  onCollectionUpdate = (querySnapshot) => {
+    const menu = [];
+    querySnapshot.forEach((doc) => {
+      const {name, type, price, photo} = doc.data();
+      menu.push({
+        key: doc.id,
+        doc, // DocumentSnapshot
+        name,
+        type,
+        price,
+        photo
+      });
+    });
+    this.setState({
+      menu
+   });
+  }
+
+  
   // this function is used to loop through the menu items
 
   renderCard(){

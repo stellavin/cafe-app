@@ -46,6 +46,7 @@ export default class FeaturePage extends React.Component {
     e.preventDefault();
 
     const {name, type, price, photo} =this.state;
+    if(photo != ""){
     this.ref.add({
       name,
       type,
@@ -64,6 +65,9 @@ export default class FeaturePage extends React.Component {
     .catch((error) => {
       console.error("Error adding document: ", error);
     });
+  }else {
+    // show pop up to fill the field
+  }
   }
 
 
@@ -87,28 +91,28 @@ export default class FeaturePage extends React.Component {
           <div className="row margin">
             <div className="col-md-2">Type</div>
             <div className="col-md-5">
-              <Select  options={ techCompanies } value={this.state.type} onChange={this.handleSelectOption} />
+              <Select required  options={ techCompanies } onChange={this.handleSelectOption} />
             </div>
           </div>
 
           <div className="row margin">
             <div className="col-md-2">Name</div>
             <div className="col-md-5">
-               <input  name="name" value={this.state.name} onChange={e => this.setState({ name: e.target.value })} placeholder="Name"></input>
+               <input  name="name" required   onChange={this.onChange} placeholder="Name"></input>
             </div>
           </div>
 
           <div className="row margin">
             <div className="col-md-2">Price</div>
             <div className="col-md-5">
-               <input  name="price" value={this.state.price} onChange={this.onChange} placeholder="Price" type="number"></input>
+               <input  name="price" required  onChange={this.onChange} placeholder="Price" type="number"></input>
             </div>
           </div>
 
           <div className="row margin">
             <div className="col-md-2">Photo</div>
             <div className="col-md-3">
-            <input  name="photo" value={this.state.photo} onChange={this.onChange} placeholder="photo" type="file" className="inputfile"></input>
+            <input  name="photo" required  onChange={this.onChange} placeholder="photo" type="file" className="inputfile"></input>
             </div>
           </div>
        
