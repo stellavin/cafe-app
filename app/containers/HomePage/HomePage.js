@@ -58,7 +58,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       console.log('items----', item)
       {/* Menu Card */}
       return (
-              <div className="card">
+              <div className="card" key={i}>
               <div className="card-image">
                 <img src={item.photo} />
               </div>

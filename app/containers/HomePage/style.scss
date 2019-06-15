@@ -66,6 +66,7 @@
 
   }
   .card-footer {
+    width: 300px;
     display: flex;
     color: #7c7e89;
     font-weight: 'bold';
@@ -77,7 +78,7 @@
     .type {
       font-size: 18;
       text-align: 'left';
-      margin-top: 15px;
+      margin-top: 5px;
       margin-left: 30px;
       
       
@@ -86,16 +87,16 @@
       font-size: 23;
       text-align: 'left';
       color: #4d4f5c;
-      margin-top: 6px;
+      //margin-top: 6px;
       margin-left: 30px;
 
 
     }
     .price{
       opacity: 0.58;
-      font-size: 22;
-      margin-left: 100px;
-      margin-top: 25px;
+    font-size: 22;
+    margin-left: 80px;
+    margin-top: 15px;
     }
 
   }
