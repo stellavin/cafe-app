@@ -6,7 +6,6 @@ import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import firebase from '../Firebase/Firebase';
 import SweetAlert from 'react-bootstrap-sweetalert';
-import FileUploader from "react-firebase-file-uploader";
 import CustomUploadButton from 'react-firebase-file-uploader/lib/CustomUploadButton';
 
 
@@ -27,7 +26,8 @@ export default class FeaturePage extends React.PureComponent {
       myalert: false,
       avatar: "",
       isUploading: false,
-      progress: 0
+      progress: 0,
+      showAlert: null
     };
   }
 
@@ -66,9 +66,10 @@ export default class FeaturePage extends React.PureComponent {
         name: '',
         type: '',
         price: '',
-        photo: ''
+        photo: '',
+        showAlert: true
       });
-      this.props.history.push("/")
+      // this.props.history.push("/")
     })
     .catch((error) => {
       console.error("Error adding document: ", error);
@@ -76,10 +77,11 @@ export default class FeaturePage extends React.PureComponent {
   
   }
 
-  hideAlert = () => {
+  confirm = () => {
     this.setState({
-      myalert: false
+      showAlert: false
     });
+    this.props.history.push("/")
   }
 
     handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
@@ -92,9 +94,6 @@ export default class FeaturePage extends React.PureComponent {
     };
 
 handleUploadSuccess = filename => {
-  this.setState({progress:100},function () {
-    console.log('filename-------',filename);
-   })
   this.setState({ avatar: filename, progress: 100, isUploading: false });
   firebase
     .storage()
@@ -102,8 +101,6 @@ handleUploadSuccess = filename => {
     .child(filename)
     .getDownloadURL()
     .then(url => this.setState({photo:url},function () {
-      console.log('image-------',this.state.photo);
-      this.renderForm();
      }));
 };
 
@@ -153,7 +150,6 @@ renderForm = () =>{
         style={{backgroundColor: '#3b86ff', color: 'white', padding: 10, borderRadius: 4}}
       >
         Choose photo
-
       </CustomUploadButton>
       </div>
     </div>
@@ -176,9 +172,7 @@ renderForm = () =>{
 
   render() {
     console.log('render called');
-    const {name, type, price, myalert, avatar} =this.state;
-    console.log('image ----url--- 00000', photo)
-    const photo = 'https://firebasestorage.googleapis.com/v0/b/test-d696e.appspot.com/o/images%2F17022320_1280049425422343_715237237919839196_n.jpg?alt=media&token=98cd3f1e-712e-4909-83cf-4d1ad0086af8'
+    const {showAlert} = this.state;
     return (
       <div className="feature-page">
         <Helmet>
@@ -192,18 +186,17 @@ renderForm = () =>{
 
         {this.renderForm()}
 
-       {myalert?(
-         <SweetAlert 
-         danger 
-         show={true}
-         title="Error!" 
-         onConfirm={this.hideAlert()} 
-       > 
-         Type should not be empty 
-       </SweetAlert>
-
-       ): null}
-        
+        {showAlert && 
+          <SweetAlert
+                success
+                show={showAlert}
+                confirmBtnText="Awesome"
+                title="Yeeey !!!"
+                onConfirm={this.confirm}
+              >
+                You have successfully added your menu
+              </SweetAlert>
+          }
 
       </div>
     );
