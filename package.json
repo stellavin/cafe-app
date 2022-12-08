@@ -25,7 +25,7 @@
     "chalk": "^2.3.2",
     "compression": "1.7.3",
     "cross-env": "5.2.0",
-    "express": "4.16.3",
+    "express": "4.17.3",
     "firebase": "^6.2.0",
     "fontfaceobserver": "2.0.13",
     "history": "4.7.2",
